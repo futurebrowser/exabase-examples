@@ -2,7 +2,13 @@
 
 This is a simple example of an AI flashcard generator using Exabase, Next.js, AI SDK, shadcn/ui, and Tailwind CSS.
 
-The user can upload PDFs and the AI will generate flashcards from those documents and save them as Exabase memories in their workspace.
+Users upload PDFs, the app chooses the most relevant documents for a prompt, and the AI generates flashcards that are saved back to Exabase memories in the workspace.
+
+## How Exabase is used in this example
+
+- Store uploaded PDF files in the workspace.
+- Extract and store a summary for each document so the LLM can choose which documents to use for flashcard generation.
+- Save generated flashcards as workspace memories for retrieval and reuse.
 
 ## Demo
 
@@ -14,8 +20,8 @@ https://github.com/user-attachments/assets/b6a1dcfb-a306-40cd-ab60-cdbf49c42e4a
 
 ## Technologies
 
-- Exabase: Smart storage
+- Exabase: Headless cloud filesystem, automatic content extraction, memory generation and retrieval
 - Next.js: Front-end and back-end
-- AI SDK: AI capabilities
-- shadcn/ui: Accessible UI components (Base UI + Tailwind)
+- AI SDK: AI capabilities (OpenAI model)
+- shadcn/ui: Accessible UI components
 - Tailwind CSS: Styling
