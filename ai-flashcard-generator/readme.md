@@ -4,9 +4,13 @@ This is a simple example of an AI flashcard generator using Exabase, Next.js, AI
 
 The user can upload PDFs and the AI will generate flashcards from those documents and save them as Exabase memories in their workspace.
 
+## Demo
+
+<video src="https://github.com/futurebrowser/exabase-examples/raw/refs/heads/main/ai-flashcard-generator/docs/demo-x2.mp4" controls width="960"></video>
+
 ## Deploy your own
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/futurebrowser/exabase-examples/tree/main/examples/ai-flashcard-generator&project-name=ai-flashcard-generator&repository-name=ai-flashcard-generator)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ffuturebrowser%2Fexabase-examples%2Ftree%2Fmain%2Fai-flashcard-generator&env=OPENAI_API_KEY,EXABASE_API_KEY&envDescription=Get%20your%20EXABASE_API_KEY%20from%20your%20console&envLink=https%3A%2F%2Fconsole.exabase.io%2Fapi-keys)
 
 ## Technologies
 
