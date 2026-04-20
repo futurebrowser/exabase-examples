@@ -8,10 +8,10 @@ import { getExabase } from "@/lib/exabase-server";
 import {
   buildFlashcardContextFromDocs,
   extractPdfText,
+  type FlashcardDocCandidate,
   MAX_SELECTED_DOCUMENTS,
   selectRelevantDocumentIds,
   truncateDocText,
-  type FlashcardDocCandidate,
 } from "@/lib/flashcard-document-context";
 
 function resolveOpenAiModel(): string {
@@ -58,9 +58,15 @@ function asCaption(resource: ResourceDetail): string | null {
   return normalized && normalized.length > 0 ? normalized : null;
 }
 
-function asPdfCandidate(resource: ResourceDetail): FlashcardDocCandidate | null {
+function asPdfCandidate(
+  resource: ResourceDetail,
+): FlashcardDocCandidate | null {
   if (resource.kind !== "document") return null;
-  if (!isCompleted("stateProcessing" in resource ? resource.stateProcessing : null)) {
+  if (
+    !isCompleted(
+      "stateProcessing" in resource ? resource.stateProcessing : null,
+    )
+  ) {
     return null;
   }
   const mimeType = "mimeType" in resource ? resource.mimeType : null;
@@ -79,7 +85,12 @@ async function readPdfContext(params: {
   resourceId: string;
   name: string;
   caption: string;
-}): Promise<{ id: string; name: string; caption: string; text: string } | null> {
+}): Promise<{
+  id: string;
+  name: string;
+  caption: string;
+  text: string;
+} | null> {
   const api = getExabase();
   const detail = await api.resources.get(
     { resourceId: params.resourceId },
@@ -100,7 +111,9 @@ async function readPdfContext(params: {
     return null;
   }
 
-  const rawText = await extractPdfText(Buffer.from(await fileRes.arrayBuffer()));
+  const rawText = await extractPdfText(
+    Buffer.from(await fileRes.arrayBuffer()),
+  );
   const text = truncateDocText(rawText);
   if (!text) return null;
 
