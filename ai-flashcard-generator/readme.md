@@ -1,8 +1,8 @@
 # AI Flashcard generator using Exabase
 
-This is a simple example of an AI flashcard generator using Exabase, Next.js, AI SDK, and Tailwind CSS.
+This is a simple example of an AI flashcard generator using Exabase, Next.js, AI SDK, shadcn/ui, and Tailwind CSS.
 
-The user can upload documents and the AI will generate flashcards from the documents and save to their Exabase workspace.
+The user can upload PDFs and the AI will generate flashcards from those documents and save them as Exabase memories in their workspace.
 
 ## Deploy your own
 
@@ -13,4 +13,5 @@ The user can upload documents and the AI will generate flashcards from the docum
 - Exabase: Smart storage
 - Next.js: Front-end and back-end
 - AI SDK: AI capabilities
+- shadcn/ui: Accessible UI components (Base UI + Tailwind)
 - Tailwind CSS: Styling
