@@ -6,7 +6,7 @@ The user can upload PDFs and the AI will generate flashcards from those document
 
 ## Demo
 
-<video src="https://github.com/futurebrowser/exabase-examples/raw/refs/heads/main/ai-flashcard-generator/docs/demo-x2.mp4" controls width="960"></video>
+https://github.com/user-attachments/assets/b6a1dcfb-a306-40cd-ab60-cdbf49c42e4a
 
 ## Deploy your own
 
