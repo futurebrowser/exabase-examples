@@ -12,7 +12,7 @@ Users upload PDFs, the app chooses the most relevant documents for a prompt, and
 
 ## Demo
 
-https://github.com/user-attachments/assets/b6a1dcfb-a306-40cd-ab60-cdbf49c42e4a
+https://github.com/user-attachments/assets/6a96635f-6905-479f-86ab-a1aca2025bcc
 
 ## Deploy your own
 
