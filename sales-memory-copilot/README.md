@@ -1,3 +1,4 @@
+
 # Sales Memory Copilot using Exabase
 
 This is a minimal example of a **memory-first sales copilot** using Exabase, Next.js, AI SDK, shadcn-style UI (Base UI primitives), and Tailwind CSS.
@@ -12,6 +13,7 @@ You create an isolated **Exabase Base** for the demo (your `baseId` is in the UR
 
 ## Demo
 
+https://github.com/user-attachments/assets/f50829ce-56db-4f33-80f6-4193774b1aa0
 
 ## Deploy your own
 
