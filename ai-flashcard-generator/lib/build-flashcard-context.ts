@@ -55,34 +55,39 @@ function formatSearchHit(hit: Search200ResponseHitsInner): string {
  * plus memory snippets. Used with OpenAI (no Exabase chatbot resource binding).
  */
 export async function buildFlashcardLlmContext(
-  workspaceId: string,
+  baseId: string,
   topic: string,
 ): Promise<FlashcardLlmContext> {
   const api = getExabase();
-  const { spaceId } = await ensureWorkspaceLayout(workspaceId);
+  const { spaceId } = await ensureWorkspaceLayout(baseId);
 
   const q = topic.trim() || "key concepts definitions summary";
 
+  const scope = { baseId };
   const [searchRes, memRes] = await Promise.all([
-    api.search.search({
-      workspaceId,
-      text: q,
-      filters: {
-        parentIds: [spaceId],
-        kinds: [
-          SearchRequestAllOfFiltersKindsEnum.Document,
-          SearchRequestAllOfFiltersKindsEnum.Highlight,
-          SearchRequestAllOfFiltersKindsEnum.Bookmark,
-        ],
-      },
-      pagination: { page: 1, pageSize: SEARCH_PAGE_SIZE },
-      incognito: true,
-    } as Parameters<typeof api.search.search>[0]),
-    api.memories.search({
-      query: q,
-      limit: MEMORY_LIMIT,
-      workspaceId,
-    } as Parameters<typeof api.memories.search>[0]),
+    api.search.search(
+      {
+        text: q,
+        filters: {
+          parentIds: [spaceId],
+          kinds: [
+            SearchRequestAllOfFiltersKindsEnum.Document,
+            SearchRequestAllOfFiltersKindsEnum.Highlight,
+            SearchRequestAllOfFiltersKindsEnum.Bookmark,
+          ],
+        },
+        pagination: { page: 1, pageSize: SEARCH_PAGE_SIZE },
+        incognito: true,
+      } as Parameters<typeof api.search.search>[0],
+      scope,
+    ),
+    api.memories.search(
+      {
+        query: q,
+        limit: MEMORY_LIMIT,
+      } as Parameters<typeof api.memories.search>[0],
+      scope,
+    ),
   ]);
 
   const resourceBlocks = searchRes.hits.map(formatSearchHit).filter(Boolean);
@@ -99,11 +104,11 @@ export async function buildFlashcardLlmContext(
   const parts: string[] = [];
   if (resourceBlocks.length > 0) {
     parts.push(
-      `## Relevant workspace resources (search)\n\n${resourceBlocks.join("\n\n---\n\n")}`,
+      `## Relevant base resources (search)\n\n${resourceBlocks.join("\n\n---\n\n")}`,
     );
   }
   if (memoryBlocks.length > 0) {
-    parts.push(`## Workspace memories\n\n${memoryBlocks.join("\n\n---\n\n")}`);
+    parts.push(`## Base memories\n\n${memoryBlocks.join("\n\n---\n\n")}`);
   }
   if (thin) {
     parts.push(

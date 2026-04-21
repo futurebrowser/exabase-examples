@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Flashcards · Exabase",
+  title: "Flashcards",
   description:
     "Upload PDFs to Exabase, then generate flashcards with the AI SDK.",
 };
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased font-mono`}
     >
       <body className="min-h-full flex flex-col">
         <Providers>{children}</Providers>

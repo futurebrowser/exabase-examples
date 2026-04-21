@@ -10,13 +10,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { postCreateWorkspace } from "@/lib/api/client";
+import { postCreateBase } from "@/lib/api/client";
 
 export default function Home() {
   const createMutation = useMutation({
-    mutationFn: postCreateWorkspace,
+    mutationFn: postCreateBase,
     onSuccess: (data) => {
-      window.location.href = `/w/${data.workspaceId}`;
+      window.location.href = `/b/${data.baseId}`;
     },
   });
 
@@ -30,7 +30,7 @@ export default function Home() {
           <CardTitle>Flashcards</CardTitle>
           <CardDescription>
             Upload PDFs to Exabase, wait for processing, then generate cards
-            with the AI SDK. No login — your workspace id is in the URL.
+            with the AI SDK. No login — your base id is in the URL.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -40,7 +40,7 @@ export default function Home() {
             onClick={() => createMutation.mutate()}
             className="w-full sm:w-auto"
           >
-            {createMutation.isPending ? "…" : "New workspace"}
+            {createMutation.isPending ? "…" : "New base"}
           </Button>
           {err ? (
             <Alert variant="destructive">

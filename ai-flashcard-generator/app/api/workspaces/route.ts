@@ -1,17 +1,17 @@
 import { NextResponse } from "next/server";
-import { createWorkspaceResponseSchema } from "@/lib/api/schemas";
+import { createBaseResponseSchema } from "@/lib/api/schemas";
 import { getExabase } from "@/lib/exabase-server";
 import { ensureWorkspaceLayout } from "@/lib/workspace-layout";
 
 export async function POST() {
   const api = getExabase();
-  const workspace = await api.workspaces.create({
+  const base = await api.bases.create({
     title: "Flashcards demo",
   });
 
-  await ensureWorkspaceLayout(workspace.id);
-  const body = createWorkspaceResponseSchema.parse({
-    workspaceId: workspace.id,
+  await ensureWorkspaceLayout(base.id);
+  const body = createBaseResponseSchema.parse({
+    baseId: base.id,
   });
 
   return NextResponse.json(body);

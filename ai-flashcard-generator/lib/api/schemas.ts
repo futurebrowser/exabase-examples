@@ -65,10 +65,8 @@ export type DeleteAllFlashcardsResponse = z.infer<
   typeof deleteAllFlashcardsResponseSchema
 >;
 
-export const createWorkspaceResponseSchema = z.object({
-  workspaceId: z.string(),
+export const createBaseResponseSchema = z.object({
+  baseId: z.string(),
 });
 
-export type CreateWorkspaceResponse = z.infer<
-  typeof createWorkspaceResponseSchema
->;
+export type CreateBaseResponse = z.infer<typeof createBaseResponseSchema>;

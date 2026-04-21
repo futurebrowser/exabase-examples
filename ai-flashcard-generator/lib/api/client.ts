@@ -1,7 +1,7 @@
 import type { z } from "zod";
 import {
   apiErrorSchema,
-  createWorkspaceResponseSchema,
+  createBaseResponseSchema,
   deleteAllFlashcardsResponseSchema,
   documentsResponseSchema,
   flashcardsResponseSchema,
@@ -54,48 +54,48 @@ export async function fetchJson<T>(
   return parsed.data;
 }
 
-const w = (workspaceId: string) => `/api/w/${workspaceId}`;
+const baseApi = (baseId: string) => `/api/b/${baseId}`;
 
-export function getDocuments(workspaceId: string) {
+export function getDocuments(baseId: string) {
   return fetchJson(
-    `${w(workspaceId)}/documents`,
+    `${baseApi(baseId)}/documents`,
     undefined,
     documentsResponseSchema,
   );
 }
 
-export function getFlashcards(workspaceId: string) {
+export function getFlashcards(baseId: string) {
   return fetchJson(
-    `${w(workspaceId)}/flashcards`,
+    `${baseApi(baseId)}/flashcards`,
     undefined,
     flashcardsResponseSchema,
   );
 }
 
-export function deleteAllFlashcards(workspaceId: string) {
+export function deleteAllFlashcards(baseId: string) {
   return fetchJson(
-    `${w(workspaceId)}/flashcards`,
+    `${baseApi(baseId)}/flashcards`,
     { method: "DELETE" },
     deleteAllFlashcardsResponseSchema,
   );
 }
 
-export function postUpload(workspaceId: string, file: File) {
+export function postUpload(baseId: string, file: File) {
   const fd = new FormData();
   fd.set("file", file);
   return fetchJson(
-    `${w(workspaceId)}/upload`,
+    `${baseApi(baseId)}/upload`,
     { method: "POST", body: fd },
     uploadResponseSchema,
   );
 }
 
 export function postGenerateFlashcards(
-  workspaceId: string,
+  baseId: string,
   body: { topic: string; count: number },
 ) {
   return fetchJson(
-    `${w(workspaceId)}/flashcards/generate`,
+    `${baseApi(baseId)}/flashcards/generate`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -105,10 +105,10 @@ export function postGenerateFlashcards(
   );
 }
 
-export function postCreateWorkspace() {
+export function postCreateBase() {
   return fetchJson(
     "/api/workspaces",
     { method: "POST" },
-    createWorkspaceResponseSchema,
+    createBaseResponseSchema,
   );
 }

@@ -7,7 +7,7 @@
       "dependencies": {
         "@ai-sdk/openai": "^3.0.53",
         "@base-ui/react": "^1.4.0",
-        "@exabase/sdk": "^0.0.3",
+        "@exabase/sdk": "^0.0.5",
         "@remixicon/react": "^4.9.0",
         "@tanstack/react-query": "^5.99.0",
         "ai": "^6.0.168",
@@ -137,7 +137,7 @@
 
     "@emnapi/runtime": ["@emnapi/runtime@1.10.0", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-ewvYlk86xUoGI0zQRNq/mC+16R1QeDlKQy21Ki3oSYXNgLb45GV1P6A0M+/s6nyCuNDqe5VpaY84BzXGwVbwFA=="],
 
-    "@exabase/sdk": ["@exabase/sdk@0.0.3", "", {}, "sha512-r8uySLdFTocblg1ZiqhJqWuiLYe4OMYNkl6c7YfaIKGi9cQL7Y2NI9dkaOIJvzDbkyXXI9KA7bNGwPkVw1Zdxw=="],
+    "@exabase/sdk": ["@exabase/sdk@0.0.5", "", {}, "sha512-QvQb2VSPFS3JMSGmqDbkUZjcTDgqYZEhoPPFPsFqU5S7Ef3assCRY/cQfPLeS6NXblCu8P3rgGFlww3NCz/0hQ=="],
 
     "@floating-ui/core": ["@floating-ui/core@1.7.5", "", { "dependencies": { "@floating-ui/utils": "^0.2.11" } }, "sha512-1Ih4WTWyw0+lKyFMcBHGbb5U5FtuHJuujoyyr5zTaWS5EYMeT6Jb2AuDeftsCsEuchO+mM2ij5+q9crhydzLhQ=="],
 

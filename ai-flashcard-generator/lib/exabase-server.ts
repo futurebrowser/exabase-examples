@@ -1,8 +1,8 @@
 import { Exabase } from "@exabase/sdk";
 
 /**
- * Shared Exabase API key auth — not end-user login. Workspace access is
- * whoever has the URL (`/w/:workspaceId`); fine for a demo, not multi-tenant security.
+ * Shared Exabase API key auth — not end-user login. Base access is whoever has
+ * the URL (`/b/:baseId`); fine for a demo, not multi-tenant security.
  */
 export function getExabase(): Exabase {
   const apiKey = process.env.EXABASE_API_KEY;

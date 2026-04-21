@@ -18,11 +18,11 @@ export type WorkspaceLayout = {
 };
 
 export async function ensureWorkspaceLayout(
-  workspaceId: string,
+  baseId: string,
 ): Promise<WorkspaceLayout> {
   const api = getExabase();
 
-  const list = await api.spaces.list({ limit: 50 }, { workspaceId });
+  const list = await api.spaces.list({ limit: 50 }, { baseId });
   const spaceRoot = list.data.roots.find(
     (r) => r.type === ResourceRootListItemTypeEnum.Space,
   );
@@ -31,7 +31,7 @@ export async function ensureWorkspaceLayout(
   if (!spaceRoot) {
     const space = await api.spaces.create(
       { name: "Library", isPrivate: false },
-      { workspaceId },
+      { baseId },
     );
     spaceId = space.id;
   } else {
@@ -45,7 +45,7 @@ export async function ensureWorkspaceLayout(
       name: FLASHCARDS_FOLDER_NAME,
       limit: 10,
     },
-    { workspaceId },
+    { baseId },
   );
 
   const existing = folderFilter.resources.find(
@@ -60,7 +60,7 @@ export async function ensureWorkspaceLayout(
         name: FLASHCARDS_FOLDER_NAME,
         parentId: asParentId(spaceId),
       },
-      { workspaceId },
+      { baseId },
     );
     flashcardsFolderId = folder.id;
   }
