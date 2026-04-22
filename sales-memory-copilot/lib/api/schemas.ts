@@ -18,6 +18,8 @@ export const prepareResponseSchema = z.object({
   memoriesUsed: z.array(memoryItemSchema),
 });
 
+export type PrepareResponse = z.infer<typeof prepareResponseSchema>;
+
 export const captureRequestSchema = z.object({
   clientName: z.string().trim().min(1).max(120),
   notes: z.string().trim().min(1).max(12000),
@@ -33,6 +35,8 @@ export const captureResponseSchema = z.object({
   created: z.array(captureCreatedMemorySchema),
   totalCreated: z.number().int().min(0),
 });
+
+export type CaptureResponse = z.infer<typeof captureResponseSchema>;
 
 export const createBaseResponseSchema = z.object({
   baseId: z.string(),

@@ -1,12 +1,5 @@
 import { z } from "zod";
 
-/** Error JSON from Next API routes */
-export const apiErrorSchema = z.object({
-  error: z.string(),
-});
-
-export type ApiErrorBody = z.infer<typeof apiErrorSchema>;
-
 export const processingStateSchema = z
   .enum(["pending", "processing", "completed", "failed"])
   .nullable();

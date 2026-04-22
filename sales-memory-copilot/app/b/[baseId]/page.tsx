@@ -1,4 +1,4 @@
-import { WorkspaceCopilot } from "@/components/workspace-copilot";
+import { WorkspaceCopilot } from "./_client-page";
 
 export default async function WorkspacePage({
   params,

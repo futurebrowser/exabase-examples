@@ -1,6 +1,5 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,18 +9,21 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { postCreateBase } from "@/lib/api/client";
+import { trpc } from "@/lib/trpc/react";
 
 export default function Home() {
-  const createMutation = useMutation({
-    mutationFn: postCreateBase,
-    onSuccess: (data) => {
-      window.location.href = `/b/${data.baseId}`;
+  const createMutation = trpc.workspace.create.useMutation({
+    onSuccess: (payload) => {
+      window.location.href = `/b/${payload.data.baseId}`;
     },
   });
 
   const err =
-    createMutation.error instanceof Error ? createMutation.error.message : null;
+    createMutation.error instanceof Error
+      ? createMutation.error.message
+      : createMutation.error
+        ? String(createMutation.error)
+        : null;
 
   return (
     <div className="flex min-h-full min-w-0 items-center justify-center px-4 py-16">

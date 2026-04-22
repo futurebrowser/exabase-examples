@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,42 +9,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-type CreateBaseResponse = { baseId: string };
+import { trpc } from "@/lib/trpc/react";
 
 export default function Home() {
-  const [isCreating, setIsCreating] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const createMutation = trpc.base.create.useMutation({
+    onSuccess: (payload) => {
+      window.location.href = `/b/${payload.data.baseId}`;
+    },
+  });
 
-  async function createBase() {
-    setIsCreating(true);
-    setError(null);
-
-    try {
-      const response = await fetch("/api/workspaces", {
-        method: "POST",
-      });
-      const data = (await response.json()) as
-        | CreateBaseResponse
-        | { error?: string };
-
-      if (!response.ok) {
-        throw new Error(
-          data && "error" in data ? data.error : "Could not create base",
-        );
-      }
-
-      const payload = data as CreateBaseResponse;
-      window.location.href = `/b/${payload.baseId}`;
-    } catch (requestError) {
-      setError(
-        requestError instanceof Error
-          ? requestError.message
-          : "Could not create base",
-      );
-      setIsCreating(false);
-    }
+  function handleCreateBase() {
+    createMutation.mutate(undefined);
   }
+
+  const error =
+    createMutation.error instanceof Error
+      ? createMutation.error.message
+      : createMutation.error
+        ? String(createMutation.error)
+        : null;
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-3xl items-center px-6 py-20">
@@ -60,11 +42,11 @@ export default function Home() {
         <CardContent className="space-y-3">
           <Button
             type="button"
-            onClick={createBase}
-            disabled={isCreating}
+            onClick={handleCreateBase}
+            disabled={createMutation.isPending}
             className="w-full sm:w-auto"
           >
-            {isCreating ? "Creating..." : "New base"}
+            {createMutation.isPending ? "Creating..." : "New base"}
           </Button>
           {error ? (
             <Alert variant="destructive">

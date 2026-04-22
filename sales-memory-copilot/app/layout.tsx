@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { TrpcProvider } from "@/lib/trpc/react";
 import { cn } from "@/lib/utils";
 
 const geistSans = Geist({
@@ -34,7 +35,9 @@ export default function RootLayout({
         "font-mono",
       )}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <TrpcProvider>{children}</TrpcProvider>
+      </body>
     </html>
   );
 }

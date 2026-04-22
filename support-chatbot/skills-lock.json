@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "trpc-router": {
+      "source": "lobehub/lobehub",
+      "sourceType": "github",
+      "computedHash": "d4986fd6192cd5d43d94adff2b948574dcbd333f805fd1e3f8351128228f393d"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "sourcePath": "/Users/cody/Git/exabase-examples/support-chatbot/components/fabric-logo-ascii-animated.tsx",
+  "frameCount": 128,
+  "nodeCount": 1536,
+  "staticGlyphCount": 3414,
+  "width": 94,
+  "height": 57,
+  "outputFiles": [
+    "frames-all.txt",
+    "frames-foreground.txt",
+    "frames-background.txt",
+    "frames-all.json",
+    "frames-foreground.json",
+    "frames-background.json",
+    "frames-layers.json"
+  ]
+}
