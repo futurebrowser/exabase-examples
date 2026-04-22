@@ -82,7 +82,10 @@ function lineForReviewComment(
   ].join("\n");
 }
 
-type Pull = { number: number };
+type Pull = {
+  number: number;
+};
+type SearchIssuesResponse = { items?: Pull[] };
 
 function tryPushPart(parts: string[], part: string, totalChars: { n: number }) {
   if (parts.length >= MAX_RAW_BLOCKS) {
@@ -136,12 +139,15 @@ export async function ingestPrCommentsToMemories(
     return ghGetJson<T>(u);
   };
 
-  const pullsUrl = new URL(`${base}/pulls`);
-  pullsUrl.searchParams.set("state", "all");
-  pullsUrl.searchParams.set("per_page", String(MAX_PRS));
+  const pullsUrl = new URL("https://api.github.com/search/issues");
+  pullsUrl.searchParams.set(
+    "q",
+    `repo:${owner}/${repo} is:pr is:merged comments:>5`,
+  );
   pullsUrl.searchParams.set("sort", "updated");
-  pullsUrl.searchParams.set("direction", "desc");
-  const pullsRes = await doGet<Pull[]>(pullsUrl.toString());
+  pullsUrl.searchParams.set("order", "desc");
+  pullsUrl.searchParams.set("per_page", String(MAX_PRS));
+  const pullsRes = await doGet<SearchIssuesResponse>(pullsUrl.toString());
   if (!pullsRes.ok) {
     const err = (pullsRes.data as { message?: string })?.message;
     const hint =
@@ -153,8 +159,11 @@ export async function ingestPrCommentsToMemories(
       `GitHub API error for ${owner}/${repo}: ${err ?? "Request failed"}.${hint}`,
     );
   }
-  const pulls = Array.isArray(pullsRes.data) ? pullsRes.data : [];
-  if (pulls.length === 0) {
+  const mergedWithEnoughComments = Array.isArray(pullsRes.data.items)
+    ? pullsRes.data.items.slice(0, MAX_PRS)
+    : [];
+
+  if (mergedWithEnoughComments.length === 0) {
     return {
       created: 0,
       prsConsidered: 0,
@@ -167,7 +176,7 @@ export async function ingestPrCommentsToMemories(
   const parts: string[] = [];
   const totalChars = { n: 0 };
 
-  collect: for (const pr of pulls) {
+  collect: for (const pr of mergedWithEnoughComments) {
     if (parts.length >= MAX_RAW_BLOCKS) {
       break;
     }
@@ -217,7 +226,7 @@ export async function ingestPrCommentsToMemories(
   if (rawCommentBlocks === 0) {
     return {
       created: 0,
-      prsConsidered: Math.min(pulls.length, MAX_PRS),
+      prsConsidered: mergedWithEnoughComments.length,
       requestCount,
       rawCommentBlocks: 0,
       memoriesSynthesized: 0,
@@ -251,7 +260,7 @@ export async function ingestPrCommentsToMemories(
 
   return {
     created,
-    prsConsidered: Math.min(pulls.length, MAX_PRS),
+    prsConsidered: mergedWithEnoughComments.length,
     requestCount,
     rawCommentBlocks,
     memoriesSynthesized,

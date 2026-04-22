@@ -6,11 +6,11 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,16 +18,16 @@ import { Separator } from "@/components/ui/separator";
 import { trpc } from "@/lib/trpc/react";
 
 function errorMessage(error: unknown): string {
-  if (error instanceof Error) return error.message;
-  if (error !== undefined && error !== null) return String(error);
-  return "Something went wrong.";
+	if (error instanceof Error) return error.message;
+	if (error !== undefined && error !== null) return String(error);
+	return "Something went wrong.";
 }
 
 export function WorkspaceCopilot({ baseId }: { baseId: string }) {
-  const [clientName, setClientName] = useState("Acme");
-  const [ask, setAsk] = useState("Prep me for the renewal call.");
-  const [notes, setNotes] = useState(
-    `Voice call transcript snippets:
+	const [clientName, setClientName] = useState("Acme");
+	const [ask, setAsk] = useState("Prep me for the renewal call.");
+	const [notes, setNotes] = useState(
+		`Voice call transcript snippets:
 Sales rep (Noah): "Thanks everyone. Goal today is to unblock security/legal and align on rollout scope for the 12-month renewal."
 Client champion (Maya, Director of Revenue Ops): "Our biggest concern is implementation risk across EMEA. We are replacing two legacy tools and cannot afford downtime in Q3."
 CTO (Arun): "Security review is mostly done, but we need explicit data residency guarantees for Germany and France. Also clarify subprocessors and retention windows."
@@ -97,183 +97,183 @@ Draft next-step checklist:
 3) Share implementation plan with phased timeline and named architect.
 4) Schedule legal-only working session (James + our counsel) within 3 business days.
 5) Book executive sponsor call focused on business case and Q4 expansion path.`,
-  );
+	);
 
-  const prepareMutation = trpc.copilot.prepare.useMutation();
-  const captureMutation = trpc.copilot.capture.useMutation();
+	const prepareMutation = trpc.copilot.prepare.useMutation();
+	const captureMutation = trpc.copilot.capture.useMutation();
 
-  const textareaClass =
-    "min-h-24 w-full rounded-none border border-input bg-transparent px-2.5 py-2 text-xs transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50";
+	const textareaClass =
+		"min-h-24 w-full rounded-none border border-input bg-transparent px-2.5 py-2 text-xs transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50";
 
-  const brief = prepareMutation.data?.data.brief ?? "";
-  const memoriesUsed = prepareMutation.data?.data.memoriesUsed ?? [];
-  const latestCapture = captureMutation.data?.data ?? null;
+	const brief = prepareMutation.data?.data.brief ?? "";
+	const memoriesUsed = prepareMutation.data?.data.memoriesUsed ?? [];
+	const latestCapture = captureMutation.data?.data ?? null;
 
-  const lastActionRef = useRef<"prepare" | "capture" | null>(null);
+	const lastActionRef = useRef<"prepare" | "capture" | null>(null);
 
-  const shownError =
-    lastActionRef.current === "prepare" && prepareMutation.isError
-      ? errorMessage(prepareMutation.error)
-      : lastActionRef.current === "capture" && captureMutation.isError
-        ? errorMessage(captureMutation.error)
-        : null;
+	const shownError =
+		lastActionRef.current === "prepare" && prepareMutation.isError
+			? errorMessage(prepareMutation.error)
+			: lastActionRef.current === "capture" && captureMutation.isError
+				? errorMessage(captureMutation.error)
+				: null;
 
-  function prepareFromMemory() {
-    lastActionRef.current = "prepare";
-    prepareMutation.mutate({
-      baseId,
-      clientName,
-      ask,
-      limit: 8,
-    });
-  }
+	function prepareFromMemory() {
+		lastActionRef.current = "prepare";
+		prepareMutation.mutate({
+			baseId,
+			clientName,
+			ask,
+			limit: 8,
+		});
+	}
 
-  function captureCallMemory() {
-    lastActionRef.current = "capture";
-    captureMutation.mutate({
-      baseId,
-      clientName,
-      notes,
-    });
-  }
+	function captureCallMemory() {
+		lastActionRef.current = "capture";
+		captureMutation.mutate({
+			baseId,
+			clientName,
+			notes,
+		});
+	}
 
-  return (
-    <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-6 px-6 py-8">
-      <Link href={"/"}>
-        <Button className={"w-fit"}>Back to home</Button>
-      </Link>
-      <Card>
-        <CardHeader>
-          <Badge variant="outline" className="mb-3">
-            Base: {baseId}
-          </Badge>
-          <CardTitle>Sales Memory Copilot</CardTitle>
-          <CardDescription>
-            1) Retrieve memory for prep. 2) Capture new call memory. 3) Re-run
-            prep to see improvement.
-          </CardDescription>
-        </CardHeader>
-      </Card>
+	return (
+		<main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-6 px-6 py-8">
+			<Link href={"/"} className="w-fit">
+				<Button className={"w-fit"}>Back to home</Button>
+			</Link>
+			<Card>
+				<CardHeader>
+					<Badge variant="outline" className="mb-3">
+						Base: {baseId}
+					</Badge>
+					<CardTitle>Sales Memory Copilot</CardTitle>
+					<CardDescription>
+						1) Retrieve memory for prep. 2) Capture new call memory. 3) Re-run
+						prep to see improvement.
+					</CardDescription>
+				</CardHeader>
+			</Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Step 1 - Capture new memory</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <div className="space-y-1">
-            <Label htmlFor="notes">Call notes</Label>
-            <textarea
-              id="notes"
-              className={`${textareaClass} min-h-56`}
-              value={notes}
-              onChange={(event) => setNotes(event.target.value)}
-            />
-          </div>
-          <Button
-            type="button"
-            onClick={captureCallMemory}
-            disabled={captureMutation.isPending}
-          >
-            {captureMutation.isPending ? "Saving..." : "Save call memory"}
-          </Button>
-          <Separator />
-          {latestCapture ? (
-            <div className="space-y-2">
-              <CardDescription>
-                Created {latestCapture.totalCreated}{" "}
-                {latestCapture.totalCreated === 1 ? "memory" : "memories"}
-              </CardDescription>
-              {latestCapture.created.map((memory) => (
-                <Card key={memory.memoryId} size="sm">
-                  <CardHeader>
-                    <CardTitle>{memory.memoryTitle}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <pre className="whitespace-pre-wrap text-xs">
-                      {memory.memoryContent}
-                    </pre>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          ) : (
-            <CardDescription>
-              Latest saved memory will appear here.
-            </CardDescription>
-          )}
-        </CardContent>
-      </Card>
+			<Card>
+				<CardHeader>
+					<CardTitle>Step 1 - Capture new memory</CardTitle>
+				</CardHeader>
+				<CardContent className="space-y-3">
+					<div className="space-y-1">
+						<Label htmlFor="notes">Call notes</Label>
+						<textarea
+							id="notes"
+							className={`${textareaClass} min-h-56`}
+							value={notes}
+							onChange={(event) => setNotes(event.target.value)}
+						/>
+					</div>
+					<Button
+						type="button"
+						onClick={captureCallMemory}
+						disabled={captureMutation.isPending}
+					>
+						{captureMutation.isPending ? "Saving..." : "Save call memory"}
+					</Button>
+					<Separator />
+					{latestCapture ? (
+						<div className="space-y-2">
+							<CardDescription>
+								Created {latestCapture.totalCreated}{" "}
+								{latestCapture.totalCreated === 1 ? "memory" : "memories"}
+							</CardDescription>
+							{latestCapture.created.map((memory) => (
+								<Card key={memory.memoryId} size="sm">
+									<CardHeader>
+										<CardTitle>{memory.memoryTitle}</CardTitle>
+									</CardHeader>
+									<CardContent>
+										<pre className="whitespace-pre-wrap text-xs">
+											{memory.memoryContent}
+										</pre>
+									</CardContent>
+								</Card>
+							))}
+						</div>
+					) : (
+						<CardDescription>
+							Latest saved memory will appear here.
+						</CardDescription>
+					)}
+				</CardContent>
+			</Card>
 
-      <section className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Step 2 - Prepare from memory</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="space-y-1">
-              <Label htmlFor="client">Client name</Label>
-              <Input
-                id="client"
-                value={clientName}
-                onChange={(event) => setClientName(event.target.value)}
-              />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="ask">Ask</Label>
-              <textarea
-                id="ask"
-                className={textareaClass}
-                value={ask}
-                onChange={(event) => setAsk(event.target.value)}
-              />
-            </div>
-            <Button
-              type="button"
-              onClick={prepareFromMemory}
-              disabled={prepareMutation.isPending}
-            >
-              {prepareMutation.isPending ? "Preparing..." : "Prepare me"}
-            </Button>
-            <Separator />
-            <pre className="max-h-72 overflow-auto whitespace-pre-wrap text-xs">
-              {brief || "Prep brief will appear here."}
-            </pre>
-          </CardContent>
-        </Card>
+			<section className="grid gap-6 md:grid-cols-2">
+				<Card>
+					<CardHeader>
+						<CardTitle>Step 2 - Prepare from memory</CardTitle>
+					</CardHeader>
+					<CardContent className="space-y-3">
+						<div className="space-y-1">
+							<Label htmlFor="client">Client name</Label>
+							<Input
+								id="client"
+								value={clientName}
+								onChange={(event) => setClientName(event.target.value)}
+							/>
+						</div>
+						<div className="space-y-1">
+							<Label htmlFor="ask">Ask</Label>
+							<textarea
+								id="ask"
+								className={textareaClass}
+								value={ask}
+								onChange={(event) => setAsk(event.target.value)}
+							/>
+						</div>
+						<Button
+							type="button"
+							onClick={prepareFromMemory}
+							disabled={prepareMutation.isPending}
+						>
+							{prepareMutation.isPending ? "Preparing..." : "Prepare me"}
+						</Button>
+						<Separator />
+						<pre className="max-h-72 overflow-auto whitespace-pre-wrap text-xs">
+							{brief || "Prep brief will appear here."}
+						</pre>
+					</CardContent>
+				</Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Memories used for prep</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {memoriesUsed.length > 0 ? (
-              memoriesUsed.map((memory) => (
-                <Card key={memory.id} size="sm">
-                  <CardHeader>
-                    <CardTitle>{memory.name || "Untitled memory"}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <pre className="whitespace-pre-wrap text-xs">
-                      {memory.content}
-                    </pre>
-                  </CardContent>
-                </Card>
-              ))
-            ) : (
-              <CardDescription>
-                No memories loaded yet. Click <strong>Prepare me</strong>.
-              </CardDescription>
-            )}
-          </CardContent>
-        </Card>
-      </section>
+				<Card>
+					<CardHeader>
+						<CardTitle>Memories used for prep</CardTitle>
+					</CardHeader>
+					<CardContent className="space-y-3">
+						{memoriesUsed.length > 0 ? (
+							memoriesUsed.map((memory) => (
+								<Card key={memory.id} size="sm">
+									<CardHeader>
+										<CardTitle>{memory.name || "Untitled memory"}</CardTitle>
+									</CardHeader>
+									<CardContent>
+										<pre className="whitespace-pre-wrap text-xs">
+											{memory.content}
+										</pre>
+									</CardContent>
+								</Card>
+							))
+						) : (
+							<CardDescription>
+								No memories loaded yet. Click <strong>Prepare me</strong>.
+							</CardDescription>
+						)}
+					</CardContent>
+				</Card>
+			</section>
 
-      {shownError ? (
-        <Alert variant="destructive">
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{shownError}</AlertDescription>
-        </Alert>
-      ) : null}
-    </main>
-  );
+			{shownError ? (
+				<Alert variant="destructive">
+					<AlertTitle>Error</AlertTitle>
+					<AlertDescription>{shownError}</AlertDescription>
+				</Alert>
+			) : null}
+		</main>
+	);
 }
