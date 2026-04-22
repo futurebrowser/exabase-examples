@@ -12,7 +12,7 @@ You create an isolated Exabase Base (your `baseId` is in the URL). Paste a **pub
 
 ## Demo
 
-This README does not include a screencast. Run the app, create a base, optional sample seed, then ingest a public repo and ask the chat about review decisions or nits.
+Run the app, create a base, optional sample seed, then ingest a public repo and ask the chat about review decisions or nits.
 
 ## Deploy your own
 
