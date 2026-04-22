@@ -1,0 +1,44 @@
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+import { TrpcProvider } from "@/lib/trpc/react";
+import { cn } from "@/lib/utils";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "GitHub PR memory demo",
+  description:
+    "Ingest PR comments from a public repo into Exabase memories, then chat with that context",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      lang="en"
+      className={cn(
+        "h-full",
+        "antialiased",
+        geistSans.variable,
+        geistMono.variable,
+        "font-mono",
+      )}
+    >
+      <body className="min-h-full flex flex-col">
+        <TrpcProvider>{children}</TrpcProvider>
+      </body>
+    </html>
+  );
+}

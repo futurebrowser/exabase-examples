@@ -40,7 +40,7 @@ export function MemoryItem({ memory, className }: MemoryItemProps) {
           </time>
         ) : null}
       </header>
-      <pre className="mt-2 max-h-48 overflow-auto whitespace-pre-wrap text-muted-foreground text-[13px] leading-snug">
+      <pre className="mt-2 max-h-48 overflow-auto whitespace-pre-wrap text-muted-foreground text-[13px] leading-snug break-all">
         {memory.content}
       </pre>
     </article>
