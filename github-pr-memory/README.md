@@ -1,3 +1,6 @@
+
+
+
 # GitHub PR memory using Exabase
 
 This is a simple example of ingesting public pull-request discussion and review comments into Exabase memories, then chatting with that context using Exabase, Next.js, tRPC, AI SDK, shadcn/ui, and Tailwind CSS.
@@ -12,7 +15,7 @@ You create an isolated Exabase Base (your `baseId` is in the URL). Paste a **pub
 
 ## Demo
 
-This README does not include a screencast. Run the app, create a base, optional sample seed, then ingest a public repo and ask the chat about review decisions or nits.
+https://github.com/user-attachments/assets/4b7e3f10-a615-49f5-a03c-0483521dbcf8
 
 ## Deploy your own
 

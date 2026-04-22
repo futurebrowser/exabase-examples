@@ -1,3 +1,4 @@
+
 # Personal assistant using Exabase
 
 This is a simple example of a memory-first personal assistant using Exabase, Next.js, tRPC, AI SDK, shadcn/ui, and Tailwind CSS.
@@ -13,6 +14,7 @@ You create an isolated Exabase Base for the demo (your `baseId` is in the URL). 
 
 ## Demo
 
+https://github.com/user-attachments/assets/d1fd733d-ed92-4b9f-af26-09191cc364bd
 
 ## Deploy your own
 
