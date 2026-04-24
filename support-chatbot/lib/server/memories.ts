@@ -8,26 +8,26 @@ import { getExabase } from "@/lib/exabase-server";
  * Omitting `query` returns recent matches for the base scope.
  */
 export async function listMemoriesForBase(
-  baseId: string,
+	baseId: string,
 ): Promise<MemoryListItem[]> {
-  const api = getExabase();
-  const res = await api.memories.search(
-    {
-      limit: 200,
-      order: { property: "createdAt", direction: "DESC" },
-    },
-    { baseId },
-  );
+	const api = getExabase();
+	const res = await api.memories.search(
+		{
+			limit: 200,
+			order: { property: "createdAt", direction: "DESC" },
+		},
+		{ baseId },
+	);
 
-  return res.hits.map((hit) => ({
-    id: hit.id,
-    name: hit.name,
-    content: hit.content,
-    createdAt: hit.createdAt ?? null,
-  }));
+	return res.hits.map((hit) => ({
+		id: hit.id,
+		name: hit.name,
+		content: hit.content,
+		createdAt: hit.createdAt ?? null,
+	}));
 }
 
 export async function deleteMemoryForBase(baseId: string, memoryId: string) {
-  const api = getExabase();
-  await api.memories.delete({ memoryId }, { baseId });
+	const api = getExabase();
+	await api.memories.delete({ memoryId }, { baseId });
 }
