@@ -1,14 +1,17 @@
-# Extraction Diff Viewer using Exabase
+# Document Diff Viewer Example
 
-This is a simple example of a document diff viewer using Exabase, Next.js, tRPC, shadcn/ui, and Tailwind CSS.
+Enter two URLs or upload two files and click **Compare**. The demo app submits both to the Exabase Extraction API 
+concurrently, polls until both jobs finish, then shows a side-by-side metadata comparison and a word-level text diff highlighting what changed between the two documents.
 
-Enter two URLs or upload two files and click **Compare**. The app submits both to the Exabase Extraction API concurrently, polls until both jobs finish, then shows a side-by-side metadata comparison and a word-level text diff highlighting what changed between the two documents.
+## What is Exabase Extract?
+
+Exabase Extract turns any source into structured data with a single API call. Exabase Extract turns any source into structured data with a single API call. Send a URL, file, image, audio, or video and get clean JSON back with tables, metadata, and text hierarchy intact. No parsers to write, no edge cases to handle, no post-processing pipeline to maintain.
 
 ## How Exabase is used in this example
 
 - Submit two URLs or files to the Extraction API concurrently, each returning a job ID.
 - Poll both job states independently until each reaches a terminal state (completed or failed).
-- Page through all extracted text chunks for each job to assemble the full document text for diffing.
+- Paginate through all extracted text chunks for each job to assemble the full document text for diffing.
 
 ## Technologies
 
