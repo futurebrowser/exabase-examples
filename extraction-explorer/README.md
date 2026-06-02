@@ -1,39 +1,28 @@
-# Extraction Explorer
+# Extraction Explorer using Exabase
 
-Submit a URL or file to the Exabase **Extraction API**, long-poll the job until it
-finishes, then browse the extracted data — metadata, caption, keywords, document/
-media/web details — download all attachments as a ZIP, and lazily page through the
-extracted text chunks.
+This is a simple example of an extraction explorer using Exabase, Next.js, tRPC, shadcn/ui, and Tailwind CSS.
 
-Extraction is workspace-level: it works with just your API key, no base required.
+Submit a URL or upload a file; the app sends it to the Exabase Extraction API and polls until the job finishes. Browse extracted metadata, caption, keywords, and document details, page through the text chunks, download all attachments as a ZIP, and reprocess failed jobs. A webhook panel lets you configure a delivery URL and inspect or re-fire individual deliveries.
 
 ## How Exabase is used in this example
 
-- `exabase.extract.create({ url, name })` — submit a URL for extraction.
-- `exabase.extract.createFromFile({ file, name })` — submit an uploaded file (server-side, streamed).
-- `exabase.extract.get({ jobId })` — poll job state until terminal.
-- `exabase.extract.list()` — list recent extraction jobs.
-- `exabase.extract.getChunks({ jobId, start, end })` — lazy-load text chunks.
-- `exabase.extract.downloadAttachments({ jobId })` — stream a ZIP of all attachments.
-- `exabase.extract.reprocess({ jobId })` — retry a failed job.
-- `exabase.extractSettings.get()` / `update({ webhookUrl })` — configure the delivery webhook.
-- `exabase.extract.listWebhookLogs({ jobId })` / `getWebhookLog({ jobId, logId })` / `triggerWebhook({ jobId })` — inspect and re-fire webhook deliveries.
-
-## Webhooks
-
-Set a webhook URL in the **Webhook** card and Exabase will POST extraction events
-to it. When a webhook is configured, each job shows a **Webhook deliveries** panel:
-delivery status (pending/success/retrying/failed), attempt number, HTTP status,
-and an expandable view of the request payload and response body. You can also
-manually re-fire a delivery with **Trigger**.
-
-The Exabase API key is server-only; the browser talks only to this app's tRPC
-procedures and route handlers, which call the SDK with `getExabase()`.
+- Submit a URL or file to the Extraction API and receive a job ID.
+- Poll the job state until it reaches a terminal state (completed or failed).
+- List recent extraction jobs to restore previous results across page loads.
+- Page through extracted text chunks lazily so large documents load incrementally.
+- Stream all attachments as a ZIP download via a server-side route handler.
+- Reprocess a failed job with a single click.
+- Read and update the workspace webhook URL via the extraction settings API.
+- List webhook delivery logs per job, inspect request and response payloads, and manually re-trigger a delivery.
 
 ## Technologies
 
-Next.js 16, React 19, tRPC, @tanstack/react-query, Tailwind CSS v4, shadcn/ui,
-biome, and `@exabase/sdk`.
+- Exabase: Extraction API for submitting URLs and files, polling job state, reading chunks, downloading attachments, and managing webhook settings
+- Next.js: Front-end and back-end
+- tRPC: Type-safe API layer between client and server
+- shadcn/ui: Accessible UI components
+- Tailwind CSS: Styling
+- Biome: Lint and format
 
 ## Run locally
 
@@ -43,4 +32,4 @@ cp .env.example .env.local   # set EXABASE_API_KEY
 bun run dev
 ```
 
-Open http://localhost:3000 and submit a URL or file — there is no login (demo only).
+Open `http://localhost:3000` and submit a URL or drop a file — there is no login (demo only).
