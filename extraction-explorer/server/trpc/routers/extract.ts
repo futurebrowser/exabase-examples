@@ -7,11 +7,17 @@ import {
   listJobs,
   reprocessJob,
 } from "@/lib/extract/service";
+import {
+  getWebhookLog,
+  listWebhookLogs,
+  triggerWebhook,
+} from "@/lib/extract/webhooks";
 import { publicProcedure, router } from "@/server/trpc/trpc";
 
 const jobInput = z.object({ jobId: z.string().min(1) });
 const listInput = z.object({ cursor: z.string().optional() });
 const chunksInput = jobInput.extend({ start: z.number().int().min(1) });
+const webhookLogInput = jobInput.extend({ logId: z.string().min(1) });
 const createInput = z.object({
   url: z.string().url(),
   name: z.string().min(1).max(255).optional(),
@@ -72,4 +78,39 @@ export const extractRouter = router({
       throw fail(error, "[extract:reprocess]", "Could not reprocess job");
     }
   }),
+
+  webhookLogs: publicProcedure.input(jobInput).query(async ({ input }) => {
+    try {
+      const data = await listWebhookLogs(input.jobId);
+      return { success: true as const, data };
+    } catch (error) {
+      throw fail(error, "[extract:webhookLogs]", "Could not load webhook logs");
+    }
+  }),
+
+  webhookLog: publicProcedure
+    .input(webhookLogInput)
+    .query(async ({ input }) => {
+      try {
+        const data = await getWebhookLog(input.jobId, input.logId);
+        return { success: true as const, data };
+      } catch (error) {
+        throw fail(error, "[extract:webhookLog]", "Could not load webhook log");
+      }
+    }),
+
+  triggerWebhook: publicProcedure
+    .input(jobInput)
+    .mutation(async ({ input }) => {
+      try {
+        const data = await triggerWebhook(input.jobId);
+        return { success: true as const, data, message: "Webhook triggered" };
+      } catch (error) {
+        throw fail(
+          error,
+          "[extract:triggerWebhook]",
+          "Could not trigger webhook",
+        );
+      }
+    }),
 });

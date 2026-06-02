@@ -16,6 +16,16 @@ Extraction is workspace-level: it works with just your API key, no base required
 - `exabase.extract.getChunks({ jobId, start, end })` — lazy-load text chunks.
 - `exabase.extract.downloadAttachments({ jobId })` — stream a ZIP of all attachments.
 - `exabase.extract.reprocess({ jobId })` — retry a failed job.
+- `exabase.extractSettings.get()` / `update({ webhookUrl })` — configure the delivery webhook.
+- `exabase.extract.listWebhookLogs({ jobId })` / `getWebhookLog({ jobId, logId })` / `triggerWebhook({ jobId })` — inspect and re-fire webhook deliveries.
+
+## Webhooks
+
+Set a webhook URL in the **Webhook** card and Exabase will POST extraction events
+to it. When a webhook is configured, each job shows a **Webhook deliveries** panel:
+delivery status (pending/success/retrying/failed), attempt number, HTTP status,
+and an expandable view of the request payload and response body. You can also
+manually re-fire a delivery with **Trigger**.
 
 The Exabase API key is server-only; the browser talks only to this app's tRPC
 procedures and route handlers, which call the SDK with `getExabase()`.

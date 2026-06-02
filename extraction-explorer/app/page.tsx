@@ -8,6 +8,7 @@ import { ExtractResult } from "@/components/extract-result";
 import { isTerminal } from "@/components/job-state-badge";
 import { RecentJobs } from "@/components/recent-jobs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { WebhookSettings } from "@/components/webhook-settings";
 import { postUpload } from "@/lib/client/extract-rest";
 import { trpc } from "@/lib/trpc/react";
 
@@ -17,6 +18,8 @@ export default function Home() {
   const [notice, setNotice] = useState<string | null>(null);
 
   const listQuery = trpc.extract.list.useQuery({});
+  const settingsQuery = trpc.settings.get.useQuery();
+  const webhookConfigured = Boolean(settingsQuery.data?.data.webhookUrl);
 
   const jobQuery = trpc.extract.get.useQuery(
     { jobId: activeJobId ?? "" },
@@ -116,11 +119,14 @@ export default function Home() {
         }}
       />
 
+      <WebhookSettings />
+
       {job ? (
         <ExtractResult
           key={job.id}
           job={job}
           reprocessing={reprocessMutation.isPending}
+          webhookConfigured={webhookConfigured}
           onReprocess={() => {
             if (activeJobId) reprocessMutation.mutate({ jobId: activeJobId });
           }}

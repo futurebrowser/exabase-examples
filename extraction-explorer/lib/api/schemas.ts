@@ -89,6 +89,42 @@ export const extractChunksDtoSchema = z.object({
 });
 export type ExtractChunksDto = z.infer<typeof extractChunksDtoSchema>;
 
+export const extractSettingsDtoSchema = z.object({
+  webhookUrl: z.string().nullable(),
+});
+export type ExtractSettingsDto = z.infer<typeof extractSettingsDtoSchema>;
+
+export const webhookLogStatusSchema = z.enum([
+  "pending",
+  "success",
+  "retrying",
+  "failed",
+]);
+export type WebhookLogStatusDto = z.infer<typeof webhookLogStatusSchema>;
+
+export const webhookLogSummaryDtoSchema = z.object({
+  id: z.string(),
+  traceId: z.string(),
+  attemptNumber: z.number(),
+  status: webhookLogStatusSchema,
+  statusCode: z.number().nullable(),
+  errorMessage: z.string().nullable(),
+  firedAt: z.string().nullable(),
+  createdAt: z.string(),
+});
+export type WebhookLogSummaryDto = z.infer<typeof webhookLogSummaryDtoSchema>;
+
+export const webhookLogsDtoSchema = z.object({
+  items: z.array(webhookLogSummaryDtoSchema),
+});
+export type WebhookLogsDto = z.infer<typeof webhookLogsDtoSchema>;
+
+export const webhookLogDetailDtoSchema = webhookLogSummaryDtoSchema.extend({
+  requestPayloadJson: z.string().nullable(),
+  responseBody: z.string().nullable(),
+});
+export type WebhookLogDetailDto = z.infer<typeof webhookLogDetailDtoSchema>;
+
 /** Client → server upload result (from the upload route handler). */
 export const uploadResponseSchema = extractJobDtoSchema;
 export type UploadResponse = z.infer<typeof uploadResponseSchema>;

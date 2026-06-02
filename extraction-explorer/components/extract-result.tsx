@@ -12,6 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { WebhookLogs } from "@/components/webhook-logs";
 import type { ExtractJobDto, PresignedRef } from "@/lib/api/schemas";
 import { downloadHref } from "@/lib/client/extract-rest";
 import { cn } from "@/lib/utils";
@@ -51,10 +52,12 @@ export function ExtractResult({
   job,
   onReprocess,
   reprocessing,
+  webhookConfigured,
 }: {
   job: ExtractJobDto;
   onReprocess: () => void;
   reprocessing: boolean;
+  webhookConfigured: boolean;
 }) {
   const done = job.state === "completed";
 
@@ -188,6 +191,8 @@ export function ExtractResult({
             <ExtractChunks jobId={job.id} chunkCount={job.chunkCount} />
           </div>
         ) : null}
+
+        {webhookConfigured ? <WebhookLogs jobId={job.id} /> : null}
       </CardContent>
     </Card>
   );
