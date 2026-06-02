@@ -10,7 +10,7 @@ This example showcases Exabase Extract – extract standardized, structured data
 
 ## What is Exabase Extract?
 
-Exabase Extract turns any source into structured data with a single API call.Exabase Extract turns any source into structured data with a single API call. Send a URL, file, image, audio, or video and get clean JSON back with tables, metadata, and text hierarchy intact. No parsers to write, no edge cases to handle, no post-processing pipeline to maintain.
+Exabase Extract turns any source into structured data with a single API call. Exabase Extract turns any source into structured data with a single API call. Send a URL, file, image, audio, or video and get clean JSON back with tables, metadata, and text hierarchy intact. No parsers to write, no edge cases to handle, no post-processing pipeline to maintain.
 
 ## Technologies
 
