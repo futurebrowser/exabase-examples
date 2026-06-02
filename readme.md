@@ -12,7 +12,8 @@ This repository contains examples of how to use Exabase with different use cases
 
 - [GitHub PR memory](github-pr-memory): Ingest public pull-request and review comments into Exabase memories, then chat with that code-review context; Next.js, tRPC, GitHub REST, AI SDK.
 
-- [Extraction Explorer](extraction-explorer): Submit a URL or file to the Exabase Extraction API, poll for results, and browse extracted metadata, chunks, and attachments. Includes webhook delivery logs and reprocessing; Next.js, tRPC, shadcn/ui.
+- [Exabase Extract](extraction-explorer): Submit a URL or file to the Exabase Extraction API, poll for results, and 
+  browse extracted metadata, chunks, and attachments. Includes webhook delivery logs and reprocessing; Next.js, tRPC, shadcn/ui.
 
 - [Extraction Diff Viewer](extraction-diff-viewer): Submit two URLs or files concurrently, extract both, then compare side-by-side — metadata table with keyword diff and word-level text diff; Next.js, tRPC, shadcn/ui.
 
