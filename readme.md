@@ -21,12 +21,12 @@ This repository contains examples of how to use Exabase with different use cases
 
 # What can you do with Exabase?
 
-Memory – Give your agent a self-improving memory that gets smarter over time. Exabase handles storage, retrieval, and continuous refinement automatically.
+**Memory** – Give your agent a self-improving memory that gets smarter over time. Exabase handles storage, retrieval, and continuous refinement automatically.
 
-Search – Deep multi-modal search across files, images, and documents. Highly configurable and batteries-included — no stitching together multiple tools.
+**Search** – Deep multi-modal search across files, images, and documents. Highly configurable and batteries-included — no stitching together multiple tools.
 
-Extraction – Turn PDFs, websites, and media into clean, standardised output your agent can actually work with.
+**Extraction** – Turn PDFs, websites, and media into clean, standardised output your agent can actually work with.
 
-Workers – Autonomous agents that continuously update your data, monitor the web, and keep your knowledge base current.
+**Workers** – Autonomous agents that continuously update your data, monitor the web, and keep your knowledge base current.
 
-Bases – Instant filesystems with full version history. If your agent makes a mistake, roll back to any point in time.
+**Bases** – Instant filesystems with full version history. If your agent makes a mistake, roll back to any point in time.
