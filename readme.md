@@ -19,7 +19,8 @@ This repository contains examples of how to use Exabase with different use cases
 - [Document Diff Viewer Example](document-diff-viewer-example): Submit two URLs or files concurrently, extract both, 
   then compare side-by-side — metadata table with keyword diff and word-level text diff; Next.js, tRPC, shadcn/ui.
 
-# What can you do with Exabase?
+
+## What can you do with Exabase?
 
 **Memory** – Give your agent a self-improving memory that gets smarter over time. Exabase handles storage, retrieval, and continuous refinement automatically.
 
