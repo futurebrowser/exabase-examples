@@ -43,7 +43,7 @@ export function CompareMeta({
         <thead>
           <tr className="border-b border-border">
             <th className="pb-1 text-left font-mono text-[10px] uppercase text-muted-foreground" />
-            <th className="pb-1 text-right font-mono text-[10px] uppercase text-muted-foreground">
+            <th className="pb-1 pr-4 text-right font-mono text-[10px] uppercase text-muted-foreground">
               A
             </th>
             <th className="pb-1 text-right font-mono text-[10px] uppercase text-muted-foreground">
