@@ -4,12 +4,16 @@ This demo showcases how to use the Exabase **Workers API** to create background 
 
 ## Overview
 
-The Topic Researcher allows you to spin up on-demand background agents that will autonomously scour the web for a given topic, curating and saving the best articles as bookmarks in an Exabase Base. 
+The Topic Researcher allows you to spin up on-demand background agents that
+will autonomously scour the web for a given topic, curating and saving the best
+articles as bookmarks in an Exabase Base.
 
 This project demonstrates:
-- **Base Creation**: Programmatically creating isolated bases (spaces) for specific tasks.
-- **Worker Management**: Creating, listing, running, and deleting Workers via the Exabase API.
-- **SDK Integration**: Using the `@exabase/sdk` to filter and list resources (bookmarks) created by the workers.
+- **Folder Creation**: Programmatically creating folders within Bases.
+- **Worker Management**: Creating, listing, running, and deleting Workers with
+  restricted access via the Exabase API.
+- **SDK Integration**: Using the `@exabase/sdk` to filter and list resources
+  (bookmarks) created by the workers.
 
 ## Running the App
 
