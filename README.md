@@ -14,9 +14,9 @@ This repository contains examples of how to use Exabase with different use cases
 
 - [Simple Extraction Demo](simple-extraction-demo): Submit a URL or file to the Exabase Extraction API, poll for results, and browse extracted metadata, chunks, and attachments. Includes webhook delivery logs and reprocessing; Next.js, tRPC, shadcn/ui.
 
-- [Topic Researcher Worker](topic-researcher-worker): Create a background agent to research topics on the web using the Workers API.
+- [Topic Researcher](topic-researcher): Create a background agent to research topics on the web using the Workers API.
 
-- [Document Diff Viewer Example](document-diff-viewer-example): Submit two URLs or files concurrently, extract both, 
+- [Document Diff Viewer Example](document-diff-viewer-example): Submit two URLs or files concurrently, extract both,
   then compare side-by-side — metadata table with keyword diff and word-level text diff; Next.js, tRPC, shadcn/ui.
 
 
