@@ -4,7 +4,7 @@ This demo showcases how to use the Exabase **Workers API** to create background 
 
 ## Overview
 
-The Topic Researcher allows you to spin up on-demand background agents that scour the web for a given topic and curate the best articles as Exabase bookmarks. 
+The Topic Researcher allows you to spin up on-demand background agents that will autonomously scour the web for a given topic, curating and saving the best articles as bookmarks in an Exabase Base. 
 
 This project demonstrates:
 - **Base Creation**: Programmatically creating isolated bases (spaces) for specific tasks.
