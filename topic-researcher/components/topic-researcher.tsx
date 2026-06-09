@@ -282,7 +282,7 @@ export function TopicResearcher() {
         <div className="lg:col-span-5 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-              <Bot className="w-5 h-5" /> Your Agents
+              <Bot className="w-5 h-5" /> Your Workers
             </h2>
             <Button
               variant="ghost"
