@@ -32,9 +32,9 @@ import {
 
 interface Worker {
   id: string;
-  name: string;
+  name?: string | null;
   createdAt: string;
-  accessResourceIds: string[];
+  accessResourceIds?: string[] | null;
 }
 
 interface Resource {
@@ -70,8 +70,8 @@ export function TopicResearcher() {
     try {
       const data = await listWorkers();
       setWorkers(data);
-    } catch (err) {
-      console.error("Failed to load workers", err);
+    } catch (err: any) {
+      console.error("[TopicResearcher] Failed to load workers:", err, err?.message);
     } finally {
       setIsLoadingWorkers(false);
     }
@@ -87,8 +87,8 @@ export function TopicResearcher() {
 
     setIsLoadingItems(true);
     try {
-      const workerBaseId = worker.accessResourceIds[0];
-      const data = await listWorkerItems(workerBaseId);
+      const folderId = worker.accessResourceIds[0];
+      const data = await listWorkerItems(folderId);
       setItems(data);
     } catch (err) {
       console.error("Failed to load items", err);
@@ -317,9 +317,9 @@ export function TopicResearcher() {
                   <CardContent className="p-4 flex items-center justify-between">
                     <div className="min-w-0 pr-4">
                       <h3 className="font-medium text-white truncate text-base">
-                        {worker.name.replace("Topic Researcher: ", "")}
+                        {worker.name?.replace("Topic Researcher: ", "") ?? "Unnamed Agent"}
                       </h3>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-xs text-gray-500 mt-1" suppressHydrationWarning>
                         Created{" "}
                         {new Date(worker.createdAt).toLocaleDateString()}
                       </p>
@@ -333,7 +333,7 @@ export function TopicResearcher() {
                           e.stopPropagation();
                           handleRunWorker(worker);
                         }}
-                        disabled={runningWorkers[worker.id]}
+                        disabled={!!runningWorkers[worker.id]}
                         title="Run Worker Now"
                       >
                         {runningWorkers[worker.id] ? (
